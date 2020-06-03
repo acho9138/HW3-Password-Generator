@@ -34,20 +34,50 @@ function generatePassword() {
   const number = confirm("Would you like the password to have numerals?")
   const special = confirm("Would you like the password to have special characters?\n(e.g. !, $, &)")
 
-  // Create an array with the user required characters
-  let passwordArr = []
-  if (lowercase) passwordArr = passwordArr.concat(lowerCharCodes)
-  if (uppercase) passwordArr = passwordArr.concat(upperCharCodes)
-  if (number) passwordArr = passwordArr.concat(numberCharCodes)
-  if (special) passwordArr = passwordArr.concat(specialCharCodes)
+  // Creates an object with the password requirements selected by user with value 0
+  let criteria = {}
+  if (lowercase) criteria['lower'] = 0
+  if (uppercase) criteria['upper'] = 0
+  if (number) criteria['number'] = 0
+  if (special) criteria['special'] = 0
 
-  // Generate a random password string from the array with the user required characters
-  const password = []
-  for (let i = 0; i < passwordLength; i++) {
-    let code = passwordArr[Math.floor(Math.random() * passwordArr.length)]
-    password.push(String.fromCharCode(code))
+  // Creates an array with password requirments as the values
+  let criteriaKeys = Object.keys(criteria)
+  // Get a number which evenly pulls elements from all the required criteria arrays (ensures all requirements are met)
+  let numCriteria = criteriaKeys.length
+  const numCharCriteria = Math.floor(passwordLength / numCriteria)
+  // Takes the remainder from numCharCriteria and adds to the value of a random key
+  const remainder = passwordLength % numCriteria
+  const criteriaIndex = randomIndex(numCriteria)
+
+  // Assigns the number of characters which will be pulled from the password requirment arrays
+  for (let index = 0; index < numCriteria; index++) {
+    let key = criteriaKeys[index]
+    criteria[key] = numCharCriteria
+    if (index === criteriaIndex) {
+      criteria[key] += remainder
+    }
   }
-  return password.join('')
+
+  // Creates an array with characters from the password required arrays
+  let passwordArr = []
+  for (let [key, value] of Object.entries(criteria)) {
+    if (key === 'lower') {
+      passwordArr = passwordArr.concat(getRandomChars(lowerCharCodes, value))
+    }
+    if (key === 'upper') {
+      passwordArr = passwordArr.concat(getRandomChars(upperCharCodes, value))
+    }
+    if (key === 'number') {
+      passwordArr = passwordArr.concat(getRandomChars(numberCharCodes, value))
+    }
+    if (key === 'special') {
+      passwordArr = passwordArr.concat(getRandomChars(specialCharCodes, value))
+    }
+  }
+
+  // Shuffles the array and join as a string to return the password
+  return shuffle(passwordArr).join('')
 }
 
 // Creates array of numbers corresponding to the specific character codes
@@ -59,4 +89,21 @@ function arr(x, y) {
   return charCodeArray
 }
 
+// Generates array containing characters from the specified password requirement
+function getRandomChars(array, numChar) {
+  let chars = []
+  for (let i = 0; i < numChar; i++) {
+    chars.push(String.fromCharCode(array[randomIndex(array.length)]))
+  }
+  return chars
+}
 
+// Generates random number from 0 to a maximum number of the array length
+function randomIndex(arrayLength) {
+  return Math.floor(Math.random() * arrayLength)
+}
+
+// Shuffles the values in the array
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
