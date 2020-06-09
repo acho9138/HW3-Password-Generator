@@ -2,6 +2,8 @@
 
 ## Description
 
+https://acho9138.github.io/HW3-Password-Generator/
+
 Generates a password according to the specified user requirements. Allows the user to select:
 
  - Password length from 8 - 128 characters
