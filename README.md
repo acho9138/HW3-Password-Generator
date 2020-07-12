@@ -2,8 +2,6 @@
 
 ## Description
 
-https://acho9138.github.io/HW3-Password-Generator/
-
 Generates a password according to the specified user requirements. Allows the user to select:
 
  - Password length from 8 - 128 characters
@@ -26,14 +24,21 @@ If there is a remainder when dividing the password length and the number of crit
 
 A super challenging task which tested the limits of brain power and filled search histories with Google.
 
+## Usage
+
+![image](./screenshot.png)
+
+## Get Your Password!
+
+https://acho9138.github.io/HW3-Password-Generator/
 
 ## Credits
 
 Thank you to the following resources to make this website possible:
 
-    - The Coding Bootcamp at University of Sydney
-    - MDN
-    - Stack Overflow
-    - w3schools.com
-    - Web Dev Simplified Youtube Video https://www.youtube.com/watch?v=iKo9pDKKHnc
-    - Javascript.info https://javascript.info/task/shuffle
+- The Coding Bootcamp at University of Sydney
+- MDN
+- Stack Overflow
+- w3schools.com
+- Web Dev Simplified Youtube Video https://www.youtube.com/watch?v=iKo9pDKKHnc
+- Javascript.info https://javascript.info/task/shuffle
